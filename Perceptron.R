@@ -20,6 +20,7 @@
 
 # Libraries ---------------------------------------------------------------
 require(ggplot2)
+require(readr)
 
 
 # Data loading & preview ---------------------------------------------------------------
@@ -94,7 +95,10 @@ perceptron = function(x, y, learning.rate=0.05) {
   w = runif(ncol(x)) # initialize weights vector (vector in R^(number of inputs)) w/ random values
   b = 1 # initialize bias
   k = 0 # initialize iteration counter
-
+  
+  #declare data frame to append durinf for loop
+  weight_iter <- data.frame(weight_1=numeric(), weight_2=numeric(),iteration=numeric()) 
+  
     for (i in 1:nrow(x)) {
       # debug:
       print (w)
@@ -114,9 +118,18 @@ perceptron = function(x, y, learning.rate=0.05) {
         b = b + learning.rate * error # adjust bias b given error
       }
       k = k+1 # increment iteration counter
-
+      
+      # vector to be added
+      vec <- c(w[1],w[2],k)
+      
+      # change current wd
+      setwd("C:/Users/sbenard/Desktop/Perceptron/data")
+      
+      # write vector to rds file 
+      saveRDS(vec, paste0("weights_iter", as.numeric(Sys.time())*1000,".rds"))
+      
     }
-  
+
   # return updated weights (supposed to be optimals), updated bias and updated number of iterations
   return(list(w,b,k))
 }
