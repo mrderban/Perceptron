@@ -1,5 +1,5 @@
 # change current working directory
-setwd("C:/Users/sbenard/Desktop/Perceptron/data")
+setwd("C:\Users\Samuel\Desktop\Google Drive\R\Perceptron")
 
 # merge all rds files in current working directory
 mergedata <- do.call('rbind', lapply(list.files(full.names = TRUE), readRDS))
